@@ -19,4 +19,14 @@ public class testDaoImpl implements TestService {
     public void insertTest(People test) {
         testDao.insertTest(test);
     }
+
+    @Override
+    public String query(People people) {
+        return testDao.query(people);
+    }
+
+    @Override
+    public Boolean insert(String s) {
+        return testDao.insert(s);
+    }
 }

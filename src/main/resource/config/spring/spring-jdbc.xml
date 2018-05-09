@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"  xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
@@ -9,8 +11,8 @@
         http://www.springframework.org/schema/context/spring-context-4.2.xsd
         http://www.springframework.org/schema/tx
      	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
-		http://www.springframework.org/schema/aop
-		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+		">
+    <context:component-scan base-package="com.fuwenhao"/>
     <!--加载数据源-->
     <context:property-placeholder location="classpath*:db.properties"/>
     <bean id="dataSourceMysql"
@@ -32,24 +34,21 @@
             <ref bean="dataSourceMysql"/>
         </property>
     </bean>
-    <!--加载mybatis-->
-   <!-- <bean id="sqlSessionFactoryMysql" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSourceMysql"/>
-        <property name="configLocation" value="classpath*:/config/mybatis/mybatis.xml"/>
-    </bean>-->
-    <bean id="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
-          p:dataSource-ref="dataSourceMysql" p:configLocation="classpath:/config/mybatis/mybatis.xml"/>
 
+    <!-- myBatis文件 -->
+    <bean id="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceMysql"/>
+        <property name="mapperLocations" value="classpath*:config/mybatis/mapper/*.xml"/>
+    </bean>
     <!--mybatis扫描注册映射器-->
-    <bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.fuwenhao"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.fuwenhao.dao"/>
         <property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory"/>
     </bean>
     <!--支持注解-->
-    <tx:annotation-driven/>
+    <!--<tx:annotation-driven/>-->
 
     <!--springmvc用于校验数据自定义错误消息-->
     <!-- 参考地址:https://my.oschina.net/u/3211616/blog/821343-->
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
-    <!--<bean id="testService" class="com.fuwenhao.service.TestService"/>-->
+    <!--<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>-->
 </beans>

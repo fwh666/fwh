@@ -3,6 +3,12 @@
 
 <mapper namespace="com.fuwenhao.dao.TestDao">
     <insert id="insertTest" parameterType="com.fuwenhao.protocol.People">
-        insert into test VALUES #{name},#{age}
+        insert into test VALUES (#{name},#{age})
+    </insert>
+    <select id="query" parameterType="com.fuwenhao.protocol.People" resultType="com.fuwenhao.protocol.People">
+        select * from test WHERE name =#{name};
+    </select>
+    <insert id="insert" parameterType="String">
+      INSERT INTO `testName`(`name`) VALUES (#{name});
     </insert>
 </mapper>

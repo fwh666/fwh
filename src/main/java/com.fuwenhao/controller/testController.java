@@ -2,7 +2,6 @@ package com.fuwenhao.controller;
 
 import com.fuwenhao.protocol.People;
 import com.fuwenhao.service.TestService;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,18 +17,30 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class testController {
     @Autowired
     private TestService testService;
-    @ResponseBody
-    @RequestMapping(value = "/test", method = POST)
-    @Test
+    @RequestMapping(value = "/test")
     public  void  test (){
-        People People = new People();
-        People.setName("fuwenhao");
-        People.setAge(18);
-        testService.insertTest(People);
+        People people = new People();
+        people.setName("fuwenhao");
+        people.setAge(18);
+        testService.insertTest(people);
     }
-    @RequestMapping( value = "/helloworld")
-    public String helloWorld(Model model){
-        model.addAttribute("helloworld","Hi Spring MVC");
-        return  "helloworld/helloworld";
+
+    @RequestMapping("/query")
+    public String query(){
+        People people = new People();
+        people.setName("aa");
+        return testService.query(people);
+    }
+
+    @RequestMapping("insert")
+    public void insert(){
+        String s ="fuwenhao";
+       Boolean isno = testService.insert(s);
+        System.out.println(isno);
+    }
+
+    @RequestMapping(value = "/fuwenhao")
+    public String fuwenhao(){
+        return "fuwenhao";
     }
 }

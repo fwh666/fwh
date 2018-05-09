@@ -8,4 +8,6 @@ import com.fuwenhao.protocol.People;
 
 public interface TestService {
     void insertTest (People test);
+    String query(People people);
+    Boolean insert (String s);
 }
