@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"  xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/tx
+     	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+    <!--加载数据源-->
+    <context:property-placeholder location="classpath*:db.properties"/>
+    <bean id="dataSourceMysql"
+          class="com.alibaba.druid.pool.DruidDataSource"
+          destroy-method="close" init-method="init" p:driverClassName="${mysql.jdbc.driver}"
+          p:url="${mysql.jdbc.url}"
+          p:connectionProperties="druid.stat.slowSqlMillis=5000;druid.stat.logSlowSql=true"
+          p:username="${mysql.jdbc.username}" p:password="${mysql.jdbc.password}"
+          p:minIdle="1" p:maxActive="20" p:poolPreparedStatements="false"
+          p:maxPoolPreparedStatementPerConnectionSize="-1"
+          p:initialSize="1" p:maxWait="60000" p:timeBetweenEvictionRunsMillis="60000"
+          p:minEvictableIdleTimeMillis="300000"
+          p:testOnBorrow="true" p:testOnReturn="false" p:testWhileIdle="true"
+          p:validationQuery="select 1"
+          p:filters="stat,slf4j"/>
+    <!--配置事务管理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource">
+            <ref bean="dataSourceMysql"/>
+        </property>
+    </bean>
+    <!--加载mybatis-->
+   <!-- <bean id="sqlSessionFactoryMysql" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceMysql"/>
+        <property name="configLocation" value="classpath*:/config/mybatis/mybatis.xml"/>
+    </bean>-->
+    <bean id="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="dataSourceMysql" p:configLocation="classpath:/config/mybatis/mybatis.xml"/>
+
+    <!--mybatis扫描注册映射器-->
+    <bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.fuwenhao"/>
+        <property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory"/>
+    </bean>
+    <!--支持注解-->
+    <tx:annotation-driven/>
+
+    <!--springmvc用于校验数据自定义错误消息-->
+    <!-- 参考地址:https://my.oschina.net/u/3211616/blog/821343-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+    <!--<bean id="testService" class="com.fuwenhao.service.TestService"/>-->
+</beans>
