@@ -1,0 +1,24 @@
+1。jvm的运行流程、jvm的基本结构
+    jvm基本结构：
+        --类加载器，执行引擎，运行时数据区，本地接口。
+        --class Files-->classLoader-->运行时数据区-->执行引擎，本地库接口-->本地方法库
+2。类加载器双亲委派模型讲解
+    类的加载过程：
+        --加载，连接过程（验证，准备，解析），初始化，使用，卸载
+            初始化：
+                --执行类的构造器<clinit>，为类的静态变量赋予正确的初始值
+            CLass：保存类的的定义或者结构，保存到堆中。
+            构造器：--即构造类的。
+                --static变量；
+                --static{}语句；
+            构造方法：--即实力化对象。
+
+3。classloader源码解析
+    jdk已经存在的类加载器：
+        --BootStrap Classloader;--启动类加载器、jvm的核心，由C++编写。加载路径：rt.jar
+        --Extension Classloader;--扩展类加载器.加载路径：%JAVA_HOME%/lib/ext/*.jar
+        --App Classloader;  --系统类加载器.   加载路径：Classpath
+        --自定义类加载器；                      加载路径：完全自定义路径。
+        --以上都会继承Classloder
+
+4。从源码分析实现自定义加载器
