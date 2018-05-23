@@ -1,4 +1,4 @@
-package com.fuwenhao.test;
+package com.fuwenhao.interviewTest.baseTest;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +42,6 @@ public class Java8Tester {
     }
     // 使用 java 8 排序
     private void sortUsingJava8(List<String> names){
-        Collections.sort(names, (s1, s2) -> s1.compareTo(s2));
+//        Collections.sort(names, (s1, s2) -> s1.compareTo(s2));
     }
 }

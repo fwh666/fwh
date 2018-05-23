@@ -1,4 +1,4 @@
-package com.fuwenhao.test;
+package com.fuwenhao.interviewTest.baseTest;
 
 /**
  * 面试题

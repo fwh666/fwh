@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 public class ExchangeDemo {
     public static void main(String[] args) {
 
-        Exchanger<String> exchanger = new Exchanger<String>();
+        final Exchanger<String> exchanger = new Exchanger<String>();
         ExecutorService threadPool = Executors.newCachedThreadPool();//创建线程池
         threadPool.execute(new Runnable() {
             @Override

@@ -1,4 +1,4 @@
-package com.fuwenhao.test;
+package com.fuwenhao.interviewTest.baseTest;
 
 /**
  * Created by FWH on 2018-05-22.
