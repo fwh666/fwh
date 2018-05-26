@@ -1,0 +1,22 @@
+1. NoSql 和 mysql的区别？
+
+2。redis常用的命令：
+    中文网址：http://redis.cn/commands.html
+    查看所有的key：       keys *
+    查看某个key是否存在： exists key
+    删除某个key：        del key
+    设置失效时间：         expire key 时间
+        --查看还有多少时间失效： ttl key
+        --接口的幂等性： 订单系统-》消息中间件-》重推、顺序、峰值
+            --返利系统：每天需要对账，也就是要重新计算一次，因此需要设置失效时间。
+    选择随机key：            randomkey
+    重命名key：              rename 原key  现key
+    选择数据库：              select 1； select 0 ； 一共：0～15个库
+    查看存储key的类型：         type key
+    查看key的数量：           dbsize
+    查看redis信息：          info
+    删除当前库的key：          flushdb
+        删除所有库的key：      flushall
+
+3。Jredis同理
+    注意：list、map、hash的存储获取方法以及参数排序
