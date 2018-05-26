@@ -11,4 +11,7 @@
     <insert id="insert" parameterType="String">
       INSERT INTO `testName`(`name`) VALUES (#{name});
     </insert>
+    <delete id="deleteTest" parameterType="com.fuwenhao.protocol.People">
+        DELETE  FROM test WHERE NAME =#{NAME}
+    </delete>
 </mapper>

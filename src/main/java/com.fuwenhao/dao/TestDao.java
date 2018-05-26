@@ -7,6 +7,7 @@ import com.fuwenhao.protocol.People;
  */
 public interface TestDao {
      void insertTest (People test);
-     String query(People people);
+     People query(People people);
      Boolean insert (String s);
+     void deleteTest(String name);
 }

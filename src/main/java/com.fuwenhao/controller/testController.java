@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by FWH on 2018-05-04.
@@ -17,30 +15,39 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class testController {
     @Autowired
     private TestService testService;
-    @RequestMapping(value = "/test")
-    public  void  test (){
+
+    @RequestMapping("/queryTest")
+    public ModelAndView queryTest(ModelAndView model) {
+        People people = new People();
+        people.setName("fuwenhao");
+        People query = testService.query(people);
+        return model.addObject("peopleTest", query);
+    }
+
+    @RequestMapping(value = "/insertTest")
+    public void insertTest() {
         People people = new People();
         people.setName("fuwenhao");
         people.setAge(18);
         testService.insertTest(people);
     }
 
-    @RequestMapping("/query")
-    public String query(){
+    @RequestMapping("/deleteTest")
+    public void deleteTest() {
         People people = new People();
-        people.setName("aa");
-        return testService.query(people);
+        people.setName("fuwenhao");
+        testService.deleteTest(people.getName());
     }
 
     @RequestMapping("insert")
-    public void insert(){
-        String s ="fuwenhao";
-       Boolean isno = testService.insert(s);
-        System.out.println(isno);
+    public void insert() {
+        String s = "fuwenhao";
+        Boolean isno = testService.insert(s);
     }
 
     @RequestMapping(value = "/fuwenhao")
-    public String fuwenhao(){
-        return "fuwenhao";
+    public Model fuwenhao(Model model) {
+        return model.addAttribute("fuwenhao");
     }
+
 }

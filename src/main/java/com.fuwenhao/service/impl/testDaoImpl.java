@@ -21,12 +21,17 @@ public class testDaoImpl implements TestService {
     }
 
     @Override
-    public String query(People people) {
+    public People query(People people) {
         return testDao.query(people);
     }
 
     @Override
     public Boolean insert(String s) {
         return testDao.insert(s);
+    }
+
+    @Override
+    public void deleteTest(String name) {
+        testDao.deleteTest(name);
     }
 }

@@ -18,7 +18,7 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for test
+-- Table structure for baseTest
 -- ----------------------------
 DROP TABLE IF EXISTS `test`;
 CREATE TABLE `test` (
@@ -27,7 +27,7 @@ CREATE TABLE `test` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of test
+-- Records of baseTest
 -- ----------------------------
 BEGIN;
 INSERT INTO `test` VALUES ('aa', 11);

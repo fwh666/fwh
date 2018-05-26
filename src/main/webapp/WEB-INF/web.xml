@@ -3,6 +3,7 @@
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
+
     <display-name>Archetype Created Web Application</display-name>
 
     <welcome-file-list>
@@ -56,5 +57,13 @@
     </servlet-mapping>
     <!-- SpringMVC拦截设置结束 -->
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+   <!-- <error-page>
+        <error-code>500</error-code>
+        <location>/500.jsp</location>
+    </error-page>-->
 
 </web-app>
