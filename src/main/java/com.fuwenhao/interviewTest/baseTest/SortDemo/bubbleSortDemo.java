@@ -2,37 +2,56 @@ package com.fuwenhao.interviewTest.baseTest.SortDemo;
 
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * create by fwh on 2018/5/25 上午9:26
  * 冒泡排序
  */
 public class bubbleSortDemo {
-    @Test
-    public void  sortTest(){
-        int[] array = { 6, 5, 8, 3, 2, 1, 9 };
-        for (int i = 0; i <array.length ; i++) {
-            for (int j= array.length-1;j>i;--j) {
-                if(array[i]-array[j]+1<0){
+    @Test //此处冒泡有问题
+    public void sortTest() {
+        int[] array = {6, 5, 8, 3, 2, 1, 9};
+        for (int i = 0; i < array.length; i++) {
+            for (int j = array.length - 1; j > i; --j) {
+                if (array[i] - array[j] + 1 < 0) {
                     int temp = array[j];
-                    array[j]= array[j-1];
-                    array[j-1]=temp;
+                    array[j] = array[j - 1];
+                    array[j - 1] = temp;
                 }
             }
         }
         System.out.println(Arrays.toString(array));
     }
 
+
+    @Test //实现冒泡排序
+    public void reviewSortTest() {
+//        int[] array = {1, 2, 5, 7, 4, 9, 3};
+        int[] array = {1, 2, 5, 7, 11, 9, 3};
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length-1; j++) {
+                if (array[j]> array[j+1]) {
+                    int temp = array[j];
+                    array[j]=array[j+1];
+                    array[j+1]=temp;
+                }
+
+            }
+        }
+        System.out.println(Arrays.toString(array));
+    }
+
+
     //=================================================
     @Test
-    public void bubbleSortTest(){
+    public void bubbleSortTest() {
         bubbleSortDemo bubble = new bubbleSortDemo();
         bubble.bubbleSort();
     }
-    int[] a = { 6, 5, 8, 3, 2, 1, 9 };
+
+    int[] a = {6, 5, 8, 3, 2, 1, 9};
+
     public void bubbleSort() {
         for (int i = 0; i < a.length; i++) {
             // 算法设计:
