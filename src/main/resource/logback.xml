@@ -79,8 +79,8 @@
             <pattern>${pattern}</pattern>
         </encoder>
     </appender>
-    <logger name="com.aisino" level="info" />
-    <root level="info">
+    <logger name="com.fuwenhao" level="debug" />
+    <root level="debug">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="debug" />
         <appender-ref ref="info" />

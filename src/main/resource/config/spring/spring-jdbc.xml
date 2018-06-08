@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
@@ -11,8 +12,14 @@
         http://www.springframework.org/schema/context/spring-context-4.2.xsd
         http://www.springframework.org/schema/tx
      	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+     	http://www.springframework.org/schema/aop
+     	http://www.springframework.org/schema/aop/spring-aop.xsd
 		">
+    <!--<context:annotation-config/>-->
     <context:component-scan base-package="com.fuwenhao"/>
+    <!--暴露aop接口-->
+    <aop:aspectj-autoproxy/>
+
     <!--加载数据源-->
     <context:property-placeholder location="classpath*:db.properties"/>
     <bean id="dataSourceMysql"
@@ -46,8 +53,7 @@
         <property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory"/>
     </bean>
     <!--支持注解-->
-    <!--<tx:annotation-driven/>-->
-
+    <tx:annotation-driven/>
     <!--springmvc用于校验数据自定义错误消息-->
     <!-- 参考地址:https://my.oschina.net/u/3211616/blog/821343-->
     <!--<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>-->

@@ -7,7 +7,8 @@ zookeeper是一个开源的分布式协调服务框架。
 应用场景：分布式通知/协调、负载均衡、配置中心、分布式锁、分布式队列等。 
 
 3、使用什么协议？
-使用ZAB协议。 
+使用ZAB协议。
+    --zook详解：https://blog.csdn.net/lovesomnus/article/details/71713848
 
 4、说说分布式一致性算法Paxos
 Paxos算法看最后文章推荐的书。 

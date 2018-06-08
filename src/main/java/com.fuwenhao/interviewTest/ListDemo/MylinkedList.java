@@ -47,6 +47,7 @@ public class MylinkedList {
         }
         //temp定位到索引的位置
         return temp.getValue();
+
     }
     //删除
     public void clear(){

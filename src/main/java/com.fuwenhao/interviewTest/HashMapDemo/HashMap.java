@@ -71,8 +71,8 @@ public class HashMap<K,V> implements Map<K,V>{
         if(table[index]==null){
             return null;
         }
-
-        return find(key,table[index]);//如果不为空，寻找对应的值
+        return null;//临时变更-因为jdk版本
+//        return find(key,table[index]);//如果不为空，寻找对应的值
     }
     //查找对应的键值。
     public V find(K k,Entry<K,V> entry){
