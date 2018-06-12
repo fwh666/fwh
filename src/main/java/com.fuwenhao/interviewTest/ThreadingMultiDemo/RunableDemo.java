@@ -1,4 +1,4 @@
-package com.fuwenhao.interviewTest.multiThreadingDemo;
+package com.fuwenhao.interviewTest.ThreadingMultiDemo;
 
 /**
  * Created by FWH on 2018-06-12.
