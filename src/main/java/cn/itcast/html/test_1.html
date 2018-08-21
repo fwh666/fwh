@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标题标签：我的标题title</title>
+</head>
+<body bgcolor="yellow" background="../../../../webapp/image/liugewen_aisino.png"><!--背景色和背景图片-->
+<a name="top"></a> <a href="#bottom">回到底部</a>
+<h1>标题1：</h1>
+<b>加粗:</b><br/>
+<font color="#663399" size="8" face="楷体">字体颜色</font><br>
+<font color="#663399" size="4" face="宋体">字体颜色</font><br>
+<p>这是一个段落</p>
+<hr size="10" color="blue">
+这是一个水平线
+<hr color="red" size="20">
+包裹嵌套
+交叉嵌套
+相对路径
+绝对路径
+<hr size="20" color="green">
+<h1>块标签</h1>
+<div>块标签div1自动换行</div>
+<div>块元素div2</div>
+<span>内联元素span1不会自动换行</span>
+<span>块标签span2</span>
+<hr color="pink" size="20">
+<h1>列表标签</h1>
+<ul type="square"><!--定义显示形式/-->
+    <li>无序标签</li>
+    <li>ul&&li</li>
+</ul>
+<ol>
+    <li>有序标签</li>
+    <li>ol&&li</li>
+</ol>
+<ol start="100">
+    <li>有序标签从100开始</li>
+    <li>ol&&li</li>
+</ol>
+<ol type="A">
+    <li>有序标签的显示形式</li>
+    <li>ol&&li</li>
+</ol>
+<hr size="20" color="orange">
+<h1>图片标签</h1>
+<img src="../../../../webapp/image/liugewen_aisino.png" alt="alt用来设置代替图片的文字">
+<img src="/Users/fwh/A_FWH/GItHub/fwh/src/main/webapp/image/liugewen_aisino.png" alt="alt用来设置代替图片的文字">
+<hr color="blue color" size="20">
+<h1><font color="red">链接标签：重点</font></h1>
+<a href="test_1.html">跳转到当前的页面</a>
+<a href="http://www.baidu.com">百度</a>
+<a href="#">链接到本页 加上#</a>
+
+<a name="test">此处会显示网址地址后期结合javascript隐藏地址</a><br>
+<a href="#top">回到顶部/设置锚点</a>
+<a name="bottom"></a>
+<h1><font color="red">表格标签：重点</font></h1>
+<table bgcolor="#7fffd4" border="2" width="70%">
+    <tr>
+        <td>tb表示一个单元格</td>
+        <td>tr表示一行</td>
+        <td>tr表示一行</td>
+        <td rowspan="2">合并行rowspan</td>
+    </tr>
+    <tr>
+        <td>tb表示一个单元格</td>
+        <td>tr表示一行</td>
+        <td>tr表示一行</td>
+    </tr>
+    <tr>
+        <td>rowspan 行合并</td>
+        <td colspan="2">colspan 列合并</td>
+    </tr>
+</table>
+<hr color="black" size="20">
+<h1>表单标签--重点</h1>
+<p>&nbsp;&nbsp;表单作用：用来提交用户输入的数据，是整个web的入口</p>
+<!--
+<p content="表单作用：用来提交用户输入的数据，是整个web的入口。"></p>
+-->
+<form>
+    用户名：<input type="text" name="username"><br>
+    密 码:<input type="password" name="password"><br>
+    日期：<input type="date" name="date">
+    时间：<input type="time" name="time"><br>
+    <h4>单选按钮</h4>
+    男：<input type="radio" name="sex" value="male">
+    女：<input type="radio" name="sex" value="female">
+    <h4>复选按钮</h4>
+    <input type="checkbox" name="vehicle" value="bike">i have a bike
+    <input type="checkbox" name="vehicle" value="car">i have a car
+    <h4>选择标签按钮</h4>
+    <select name="city">
+        <option>请选择城市</option>
+        <option value="bj">北京</option>
+        <option value="sh">上海</option>
+    </select>
+    <br>
+    <h4>大文本编辑</h4>
+    简历：<textarea name="jianli" >this is test</textarea><br>
+    <h4>隐藏按钮</h4>
+    用户ID：<input type="hidden" name="ID" value="110"><br>
+
+    <hr>
+    <p>注意：多数情况下是表单中嵌套表格</p>
+
+    提交:<input type="submit">
+</form>
+</body>
+</html>
