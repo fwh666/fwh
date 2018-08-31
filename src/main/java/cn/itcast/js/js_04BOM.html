@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js_BOM操作</title>
+</head>
+<body>
+<!--<input type="button" onclick="onclick_01()" value="点击获取地址">-->
+<hr>
+表单的校验：<br>
+<form id="form1" method="get">
+    用户名；
+    <input type="text" id="username" value="defult" name="username">
+    <input type="button" value="提交" onclick="form_01();">
+</form>
+<hr>
+</body>
+<!--<script type="text/javascript">
+    function onclick_01() {
+        document.write(location.href);
+        document.write("<hr/>");
+        // document.write(window.history);
+    }
+    //打印confirm返回值true或者false
+    var falg = window.confirm("是否删除?");
+    // alert(falg);
+    if(falg){
+        alert("删除成功");
+    }else{
+        alert("删除失败");
+    }
+</script>-->
+<script type="text/javascript">
+    //定时任务
+    // window.setTimeout("alert('nihao')",3000);//在一定时间内，只执行一次代码；
+    // window.setInterval("alert('你好a')",2000);//在一定时间内，重复执行此代码；
+    function form_01() {
+        var username = document.getElementById("username").value;
+        if (username == "") {
+            alert("用户名不能为空");
+        } else {
+            //提交表单
+            var form1 = document.getElementById("form1");
+            alert(form1);
+            form1.submit();
+        }
+    }
+</script>
+</html>

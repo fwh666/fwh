@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--此处使用外部引用CSS样式，作用于当前页面-->
+    <link rel="stylesheet" type="text/css" href="font.css">
+    <meta charset="UTF-8">
+    <title>css使用测试</title>
+    <style type="text/css">
+        /*此处表示将效果作用于div模块中*/
+        /*选择css作用于哪个HTML元素上*/
+        div{
+            color: green;
+            size: A4;
+            font-size: 120px;
+            border: red 5px solid;/*设置边界*/
+        }
+    </style>
+    <style type="text/css">
+        /*注意：此处是.符号*/
+        .class{
+            color: red;
+        }
+    </style>
+    <style type="text/css">
+        /*注意：此处是#号；ID值必须是唯一的；多个ID会在js——dom中出现问题*/
+        #id{
+            color: rebeccapurple;
+        }
+    </style>
+    <style type="text/css">
+        a:link {
+            color: black;
+            font-size: 20px;
+        }
+        a:visited{
+            color: green;
+        }
+    </style>
+    <style type="text/css">
+        input:focus{
+            background-color: yellow;
+        }
+    </style>
+    <style type="text/css">
+        div .test{
+            color: rebeccapurple;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body bgcolor="#faebd7">
+    <div>
+        你好啊
+    </div>
+    <font color="#7fffd4" size="10" >你很好</font><br>
+    <font style="size: 10px;color: aqua" >元素选择器根据font或者div直接定义样式</font><br>
+    <font class="class" >类选择器,根据class来定义样式</font><br>
+    <font id="id" >ID选择器,根据ID值来定义某一个元素的样式设置；ID再同一面上必须是唯一的；</font><br>
+    <a href="#">伪元素选择器</a><br>
+    获取焦点改变颜色，一个页面只有一个焦点:<input /><br>
+
+    <div><font class="test">组合选择器</font></div>
+    <font class="test">只让div中font定义样式生效</font>
+
+
+</body>
+</html>

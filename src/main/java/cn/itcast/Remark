@@ -1,4 +1,248 @@
 Html:
-
+    重点：
+        图片标签，链接标签<a> ,表格table,表单form,
 css:
+    了解：
+        定义：是层叠样式表
+    重点：
+        css选择器。
+            元素选择器；
+            类选择器；
+            id选择器；
+            伪元素选择器（特殊）；
+            外部链接CSS方式；
+    备注：
+        链接方式和导入方式的区别？
+            外部链接和导入CSS样式区别.png
+
 javaScript:
+    定义：必须和html语言结合使用，不能单独使用。
+    组成：底层是C语言。
+        ECMAScript（核心）：描述js的语法和基本对象。
+        DOM：文档对象类型：处理网页内容的方法和接口。
+        BOM：浏览器对象类型：与浏览器交互的方法和接口。
+    作用：
+        js可以对表单进行校验（重点）；
+        js可以对html进行动态控制；
+    注意：
+        javaScript由浏览器解释执行，写代码时候 能用一行就不要用多行，影响效率。
+
+        Script标签可以放在任何位置，但是要注意html和Script的加载顺序。
+            如果用到html元素，记得一定要先加载html元素后再去加载JavaScript代码。
+
+        在JavaScript中 ""和''都是字符串；
+
+        undefined 是定义的变量没有赋值。系统会自动赋值为undefined；
+
+        大小写敏感；
+
+        null typeof(null)是一个object，是一开始设计时候留下的bug 沿用至今；
+
+    重点：
+        搞清变量。 标示内存中的空间，用于存储数据，数据是可变的。
+
+        原始数据类型：
+            var  undefined  null
+        引用数据类型：
+            object没有数据类型限制，多用于存储和传输。
+            instanceof 用于判断变量属于哪种对象类型。
+        类型数据转换：
+    ---------------------------------------------------------------------------
+js常用方法：
+    Array数组：
+            = concat()：连接数组
+        		//concat(): 连接数组
+        		var arr1 = [1,2,3];
+        		var arr2 = [4,5,6];
+        		document.write(arr1.concat(arr2));
+
+        	= join(): 设置元素之间使用符号隔开
+        		var arr3 = new Array(3);
+        		arr3[0] = "aaa";
+        		arr3[1] = "bbb";
+        		arr3[2] = "ccc";
+        		document.write(arr3);
+        		document.write("<br/>");
+        		document.write(arr3.join("-"));
+
+        	= pop(): 删除并返回数组的最后一个元素
+        		var arr4 = new Array(3);
+        		arr4[0] = "zhangsan";
+        		arr4[1] = "lisi";
+        		arr4[2] = "zhaoliu";
+        		//输出数组的原始的值
+        		document.write("old value: "+arr4);
+        		//输出数组的原始的长度
+        		document.write("<br/>");
+        		document.write("old length: "+arr4.length);
+        		document.write("<br/>");
+
+        		//执行pop()方法的返回值
+        		document.write("return : "+arr4.pop());
+        		document.write("<br/>");
+        		document.write("new arr： "+arr4);
+
+        	= push()：向数组末尾添加元素，返回数组的最新的长度
+        		var arr1 = ["mary","jack","lucy"];
+        		//输出数组的原始的值
+        		document.write("old value: "+arr1);
+        		//数组原始的长度
+        		document.write("<br/>");
+        		document.write("old length: "+arr1.length)
+        		//执行push方法的返回值
+        		document.write("<br/>");
+        		document.write("return: "+arr1.push("hanmeimei"));
+        		document.write("<br/>");
+        		document.write("new value: "+arr1);
+
+        		//使用push方法向数组添加数组
+        		//如果添加的是数组，把数组当做一个整体的元素添加进去
+        		document.write("<hr/>");
+        		var arr2 = ["mary","jack","lucy"];
+        		var arr3 = ["lilei","wangwei","hanmeimei"];
+        		//输出数组的原始的值
+        		document.write("old value: "+arr2);
+        		//数组原始的长度
+        		document.write("<br/>");
+        		document.write("old length: "+arr2.length)
+        		//执行push方法的返回值
+        		document.write("<br/>");
+        		document.write("return: "+arr2.push(arr3));
+        		document.write("<br/>");
+        		document.write("new value: "+arr2);
+        		for(var i=0;i<arr2.length;i++) {
+        			alert(arr2[i]);
+        		}
+
+        	= reverse()：颠倒数组中元素的顺序。
+        		document.write("<hr/>");
+        		var arr4 = ["a","b","c","d"];
+        		document.write(arr4);
+        		document.write("<br/>");
+        		document.write(arr4.reverse());
+    String字符串：
+            （1）字符串的对象
+        	= var str = "aaa";   var str1 = new String("bbb");
+        	（2）属性：length，表示得到字符串的长度
+        	//length属性
+        	var str1 = "abcd";
+        	document.write(str1.length);
+
+        	（3）常用的方法：
+        	第一类：与html相关的方法
+        	= bold() 使用粗体显示字符串
+        	document.write(str1.bold());
+
+        	= link() 将字符串显示为链接
+        	document.write(str1.link("hello.html"));
+
+        	第二类：与java相似的方法
+        	= charAt() 返回在指定位置的字符,字符串里面的第一个字符是0，使用这个方法位置不存在返回空字符串 ""
+        		var str2 = "abcdef";
+        		document.write(str2.charAt(0));
+
+        	= concat() 连接字符串
+        		var str3 = "hello";
+        		var str4 = "javascript";
+        		document.write(str3.concat(str4));
+
+        	= indexOf() 检索字符串 ，如果检索的字符串不存在，返回-1
+        		var str5 = "javascript";
+        		document.write(str5.indexOf("q"));
+
+        	= substr() 从起始索引号提取字符串中指定数目的字符
+        	== 有两个参数：第一个参数是开始位置，第二个参数是从开始位置向后取几个元素
+        	= substring() 提取字符串中两个指定的索引号之间的字符
+        	== 有两个参数：第一个参数是开始位置，第二个参数是结束的位置（不包含结束的位置）
+        		var str6 = "ABCDEF";
+        		document.write("substr: "+str6.substr(2,3));   // CDE
+        		document.write("<br/>");
+        		document.write("substring: "+str6.substring(2,3));  //C   [2,3)
+    Math数学对象：
+    Date对象：
+    RegExp正则表达式对象：
+    ---------------------------------------------------------------------------
+    函数：
+        function
+    事件：
+        o'clock  submit     onload
+    BOM和DOM：
+        浏览器对象模型
+            window
+        文档对象模型
+            document
+
+
+---------------------------------------------------------------------------
+jdk1.5的新特性：
+    （1）泛型
+    	* 泛型经常用在集合里面 名称<类型（不能写基本数据类型）>
+    	* java里面的基本数据类型有八个
+    	* 八个基本数据类型对应的包装类：int--Integer；char--Character
+
+    	* List
+    	* List<String> list = new ArrayList<String>();
+    	** 遍历list集合有几种方式：有四种方式
+    	*** 普通for循环
+    	*** 迭代器
+    	*** 增强for
+    	** list的迭代器
+
+    	List list = new ArrayList();
+    	ArrayList
+    	LinkedList
+    	Vector
+
+    	* Set
+    	** 遍历set集合有几种方式：有两种方式
+    	*** 迭代器
+    	*** 增强for
+
+    	* Map
+    	** 遍历map有几种方式：有两种方式
+    	*** 第一种：得到所有的key，根据key得到value
+    	*** 第二种：得到key-value关系
+
+    	=============================================
+    	完成：把list、set、map遍历的代码写出来
+
+    （2）自动拆装箱
+    	* 装箱：把基本数据类型转换成包装类
+    	* 拆箱：把包装类转换成基本数据类型
+    	Integer m = 10;
+    	int a = m;
+
+    （3）增强for循环
+    	* 写法 for(类型 名称 : 要遍历数组或者集合) { }
+    		//使用增强for循环遍历list集合
+    		for (Integer integer : list) {
+    			System.out.println(integer);
+    		}
+    	* 增强for循环底层就是迭代器，为了替代迭代器
+
+    （4）可变参数
+    	* public void test1(类型...名称) {}
+    	* 可变参数使用在方法的参数列表中，不能单独定义可变参数
+    	* 在一个方法的参数列表中，只能有一个可变参数
+    	* 可变参数，只能在方法的参数列表最后
+
+    （5）枚举
+    	* 在一定的范围内，每次从这个范围内获取其中的一个值
+    	* 使用关键字 enum 名称 { }
+    	enum Color {
+    		RED,YELLOW,GREEN;
+    	}
+
+4.2 命名
+    （1）包命名： xx.xx.xxx
+    （2）类的名称：首字母大写
+    （3）变量的命名
+    * 使用英文单词命名，比如 userName
+    * 使用汉语拼音命名：比如 yonghuming
+    ** 不能名称里面既有英文也有拼音 userMing
+    （4）多写注释
+    （5）有缩进的效果
+
+
+
+

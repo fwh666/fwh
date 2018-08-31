@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js的函数和事件</title>
+</head>
+<script type="text/javascript">
+    //定义函数方式一
+    function test(a, b) {
+        var c = a + b;
+        // alert(c);
+        // document.write("打印结果："+c);
+    }
+
+    test(10, 20);
+</script>
+<!--<script type="text/javascript">-->
+    <!--//函数的重载-->
+    <!--function add1() {-->
+        <!--// alert("长度：" + arguments.length);-->
+        <!--for (var i = 0; i < arguments.length; i++) {-->
+            <!--// alert(arguments[i]);-->
+        <!--}-->
+    <!--}-->
+
+    <!--add1(1, 2, 3, 8);//方法调用-->
+<!--</script>-->
+<script type="text/javascript">
+    //模拟函数的重载  注意方法arguments
+    function add2() {
+        var sum = 0;
+        for (var i = 0; i < arguments.length; i++) {
+            sum += arguments[i];
+        }
+        // alert(sum);
+        return sum;
+    }
+    alert("add2");
+    alert(add2(1, 2));
+    alert(add2(2, 2, 2));
+    alert(add2(4, 4, 4, 4));
+</script>
+
+<body>
+
+</body>
+</html>

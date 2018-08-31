@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js事件操作</title>
+</head>
+<body onload="onload_01()">
+<input type="button" value="谱图按钮" onclick="onclick1()">
+<hr>
+<input type="text" id="testid">
+<hr>
+<!--<input type="text" onfocus="onfocus_01()" onblur="onblur_01()">-->
+<hr>
+获取焦点失去内容，失去焦点返回内容:<br>
+<input type="text" id="test_02" value="nihao" onfocus="onfocus_02()" onblur="onblur_02()">
+<hr>
+鼠标移入和移出事件:<br>
+<input type="text" onmouseout="out_01()" onmouseover="over_01()">
+<hr>
+键盘打印事件：<br>
+<input type="test" onkeypress="key_01(event)">
+<hr>
+提交事件：<br>
+<form method="get" onsubmit="return submit_01()">
+    username:<input name="username" value="default" id="username_id"/><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+<script type="text/javascript">
+    function onclick1() {
+        alert("谱图按钮");
+    }
+    //注意script的位置，按行加载，根据功能实现效果，把script放在实现元素的后面。
+    document.getElementById("testid").onclick = click2;
+    function click2() {
+        alert("根据id绑定事件");
+    }
+    function onload_01() {
+        alert("页面加载");
+    }
+    function onfocus_01() {
+        alert("获取焦点");
+    }
+    function onblur_01() {
+        alert("失去焦点");
+    }
+    function onfocus_02() {
+        document.getElementById("test_02").value="";
+    }
+    function onblur_02() {
+        document.getElementById("test_02").value="nihaoaaaa";
+
+    }
+    function out_01() {
+        alert("鼠标一出");
+    }
+    function over_01() {
+        alert("鼠标移入");
+    }
+    function key_01(obj) {
+        // alert(obj.value);
+        alert("键盘ascii值为："+obj.keyCode);
+        if(13==obj.keyCode){
+            alert("这是回车键");
+        }
+    }
+    function submit_01() {
+        var username =document.getElementById("username_id").value;
+        alert("提交值为："+username);
+    }
+</script>
+</html>

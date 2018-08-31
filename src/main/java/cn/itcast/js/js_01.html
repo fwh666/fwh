@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Array_方法操作</title>
+</head>
+<script type="text/javascript">
+    var arr1 = new Array(10);
+    // alert("数组长度"+arr1.length);//数组长度
+    // alert("数组长度"+arr1.forEach(3));//数组长度
+    var arr2 = [1, 2, 3];
+    var arr3 = [5, 6, 7];
+    document.write(arr2.concat(arr3));
+    /*写入到页面主体内容中*/
+    document.write("<hr>");
+</script>
+<script type="text/javascript">
+    //时间对象
+    var date = new Date();
+    document.write(date.getFullYear());
+    document.write("<hr>");
+
+    document.write(date.getMonth() + 1);
+    document.write("<hr>");
+
+    document.write(date.getDay());
+    document.write("<hr>");
+
+    document.write(date.getDate());
+    document.write("<hr>");
+</script>
+<script type="text/javascript">
+    //正则表达式
+    var reg = new RegExp("[a]");
+    var str = "a";
+    document.write(reg.test(str));
+</script>
+<body>
+
+</body>
+</html>
