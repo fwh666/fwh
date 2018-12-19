@@ -1,5 +1,6 @@
 package com.fuwenhao.test;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,11 +32,39 @@ public class ThreadLocalTest {
         }
     }
 
+    static class TestThread extends Thread{
+        @Override
+        public void run() {
+//            super.run();
+            System.out.println("测试继承的方法是否能被放入线程池中.:"+local.get());
+        }
+    }
+    static class CallableTest implements Callable{
+
+        @Override
+        public Object call() throws Exception {
+            System.out.println("Callable有返回值和抛出异常");
+            return null;
+        }
+    }
+
     static void Test1(){
         System.out.println("main thread begin");
         ExecutorService executors = Executors.newCachedThreadPool();
         for(int i =1;i<=5;i++) {
-            executors.execute(new Task(i));
+//            executors.execute(new Task(i));
+//            executors.execute(new TestThread());//测试
+            TestThread testThread = new TestThread();
+            boolean b = Thread.holdsLock(testThread);//判断线程是否拥有锁。
+            executors.submit(testThread);
+
+            //测试输出
+            CallableTest callableTest = new CallableTest();
+            try {
+                callableTest.call();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         executors.shutdown();
         System.out.println("main thread end");

@@ -1,0 +1,508 @@
+
+day07
+
+上节内容回顾
+	1、jdbc的操作步骤
+	2、jdbc的对象操作
+	（1）DriverManager・
+	（2）Connection
+	（3）Statement
+	（4）PreparedStatement
+	* 预编译对象，防止sql注入
+	（5）ResultSet
+	3、jdbc释放资源
+	（1）写在finally里面
+	（2）规范的写法
+	4、使用jdbc实现crud的操作代码
+	5、jdbc工具类的封装
+	（1）封装的思想
+	（2）读取配置文件 properties格式
+	* 使用Properties类
+	* 使用ResuorceBundle
+	6、sql的注入和防止sql注入
+	7、使用preparedStatement实现crud操作
+	（1）写sql语句时候，如果需要传参数 ，使用 ?
+	（2）对sql进行预编译操作
+e	（3）设置参数的值
+	（4）执行sql
+	* 执行的查询的操作      executeQuery()
+	* 执行增加修改删除操作 executeUpdate()
+
+1、xml的简介
+（1）是指可扩展标记语言(eXtensible Markup Language）
+* 标记型语言：html是超文本的标记型语言，所有操作都是使用标签实现的。xml里面的操作也是使用标签实现的
+* 可扩展：在html中每个标签有自己特定的含义（比如 <br/>换行 ），在xml中的标签是自己定义的 ，比如 <aa>  <猫>
+（2）xml的主要的功能不是显示数据，而是传输数据（存储数据）
+（3）xml的版本 1.0  1.1  ，现在使用的都是1.0版本
+（4）xml是W3C组织发布的技术
+
+2、xml的应用
+（1）应用于生活中有关系的数据
+（2）用于存储数据（当做数据库使用）
+（3）用于配置文件
+
+3、xml的语法
+文档声明
+（1）如果创建xml文件，后缀名是.xml。必须要有一个文档声明
+（2）写法 <?xml version="1.0" enconding="utf-8"?>
+（3）有三个属性
+version：xml的版本，这个属性必须要有
+encoding：xml的编码，这个属性是可选的
+standalone：是否依赖其他文档，这个属性是可选的
+（4）文档声明必须要放到第一行第一列
+
+元素（标签）
+（1）在xml中有开始标签必须有结束
+（2）如果xml标签没有内容，需要在标签内结束 <aa/>
+（3）在xml中标签区分大小写 <a> <A>
+（4）xml的标签可以嵌套，但是必须是合理的嵌套
+	<a><b></b></a>
+（5）一个xml中只能有一个根标签，其他标签都要在根标签的下面
+（6）xml的标签的命名规范
+	不能以数字或"_" (下划线)开头。
+	不能以xml(或XML、或Xml 等)开头。
+	不能包含空格。
+	名称中间不能包含冒号（:）。
+（7）在xml中会把空格和换行都当做内容处理
+
+属性
+（1）在xml的标签上面有多个属性，但是属性名称不能重复
+（2）属性和属性值之间，使用=隔开，属性值必须使用引号包起来（单引号或双引号）
+（3）属性名称的命名规范与元素的命名规范相同
+
+注释
+（1）<!-- -->
+（2）在xml中注释不能嵌套的
+	<!-- <!-- <age>10</age>--> -->
+
+CDATA区
+（1）把内容当做普通文本，而不是标签进行处理
+（2）<![CDATA[  内容  ]]>
+
+4、xml的约束介绍
+（1）为什么需要约束：
+xml里面的标签是自定义标签，比如创建person的xml，希望在xml中只能存储person的信息。
+没有约束，在person的xml中写任何的标签都可以（满足的语法），比如 <猫><狗>，不能出现和
+person无关的标签，需要使用xml的约束，规定xml中只能出现的标签类型。
+
+（2）两个概念
+格式良好的XML：遵循XML语法的XML
+有效的XML：遵循约束文档的XML
+* 如果是格式良好的xml不一定是有效的xml，但是如果是有效的xml一定是格式良好的xml
+
+（3）xml常见的约束（两种）
+第一种：dtd约束
+第二种：schema约束
+
+5、xml的dtd约束
+（1）快速入门
+基本语法 <!ELEMENT 元素名称 类型>
+（2）步骤
+第一步：创建.dtd文件
+第二步：查看xml中有几个元素
+第三步：根据元素的个数，在dtd文件写<!ELEMENT> ，有几个元素就写几个<!ELEMENT>
+第四步：判断元素是简单元素和复杂元素
+	* 复杂元素：有子元素
+	** <!ELEMENT 复杂元素名称 (子元素的名称)>
+	* 简单元素：没有子元素
+	** <!ELEMENT 元素名称 (#PCDATA)>
+第五步：在xml中引入dtd的约束文件
+
+（3）xml和dtd的三种关联的方式
+第一种：使用外部的dtd
+	<!DOCTYPE person SYSTEM "hello.dtd">
+第二种：使用内部的dtd
+	<!DOCTYPE person [
+		<!ELEMENT person (name,age)>
+		<!ELEMENT name (#PCDATA)>
+		<!ELEMENT age (#PCDATA)>
+	]>
+
+第三种：使用公共的dtd
+	<!DOCTYPE struts PUBLIC   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+（4）dtd对xml的元素的约束
+* 简单元素： <!ELEMENT 元素名称 类型>
+** 类型
+= (#PCDATA): 字符串
+= EMPTY：为空
+= ANY : 任意类型
+
+* 复杂元素：<!ELEMENT person (子元素)>
+= 子元素之间使用逗号隔开，表示规定元素出现的顺序
+= 子元素之间使用 | 隔开，表示只能出现这些元素中的任意一个
+
+* 表示元素出现的次数
+= 在元素上面写 * ：表示元素出现0次，1次，或者多次
+= 在元素上面写 + : 表示元素出现1次或者多次
+= 在元素上面写 ? : 表示元素出现0次或者1次
+
+（5）dtd对xml的属性的约束
+= 写法 <!ATTLIST 元素名称
+	 属性名称 属性类型 约束
+       >
+
+= 属性类型
+CDATA：字符串
+ENUMERATED (DTD没有此关键字)：表示枚举，只能从枚举列表中任选其一，如(鸡肉|牛肉|猪肉|鱼肉)
+ID:表示属性的取值不能重复,属性的值只能由字母
+== <!ATTLIST name
+	id1 CDATA #REQUIRED
+	id2 (A|B|C) #REQUIRED
+	id3 ID #REQUIRED
+>
+
+= 属性的约束
+#REQUIRED：属性必须要有
+#IMPLIED：属性可有可无
+#FIXED:表示属性的取值为一个固定值。语法：#FIXED "固定值"
+直接值：表示属性的取值为该默认值
+
+
+6、xml的schema约束
+（1）schema和dtd的比较
+* dtd语法自成一派，schema语法遵循xml的语法
+* dtd约束类型局限，schema约束的类型很多
+
+（2）schema操作的步骤
+第一步：创建schema约束文件
+	<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.itcast.cn"
+	elementFormDefault="qualified">
+
+	* xmlns="http://www.w3.org/2001/XMLSchema" ： 区分xml是约束文档
+	* targetNamespace：目标名称空间，在xml中使用这个值引入约束文档
+
+第二步：查询被约束的xml中有多少个元素，写 <element>
+第三步：判断简单元素和复杂元素
+	= 复杂元素
+		<complexType>
+			<sequence>
+
+			</sequence>
+		</complexType>
+	= 简单元素，在复杂元素里面写 <element name="name" type="string"></element>
+
+第四步：在被约束的xml中引入约束文档
+	<跟标签 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.itcast.cn"
+	xsi:schemaLocation="http://www.itcast.cn schema.xsd">
+
+（3）schema对元素和属性约束
+	* 指示器
+	All：表示只能出现一次
+	Choice： 只能出现其中的一个
+	Sequence：元素按照顺序出现
+
+	* maxOccurs="unbounded" 表示出现次数没限制
+
+	* 定义属性（复杂元素）<attribute name="p1" type="string" use="required"></attribute>
+
+（4）复杂的schema
+	* 引入多个schema，使用xmlns:别名="xsd里面targetNamespace"
+	* 在xml进行约束，别名:元素名称
+
+
+
+7、xml的解析（****）
+	7.1 对xml进行解析操作，对xml解析的技术有两种 dom 和 sax
+
+	不同的公司和组织针对这两种技术提供不同的解析器，使用解析器对xml进行操作
+	* jaxp是sun公司提供的技术
+	* dom4j：是dom4j组织提供的技术（*******）
+	* jdom：是jdom组织提供的技术
+
+	7.2 这两种解析技术的原理
+	（1）dom解析的原理
+	* 根据xml的层级结构在内存中分配一个树形结构，把xml中每部分封装成对象
+	** document
+	** element
+	** 属性
+	** 文本
+	** Node节点对象
+
+	* 优点：方便实现增加 修改 删除的操作
+	* 缺点：如果文件过大，容易造成内存的溢出
+
+	（2）sax的解析的原理
+	* 采用事件驱动，边读边解析
+	* 当解析到特定的标签时候，自动触发事件，调用相应的方法
+
+	* 优点：不会造成内存的溢出
+	* 缺点：不能实现增删改操作
+
+7、dom4j解析xml	（最重要的内容）
+	（0）dom4j的简介
+	* 如果要想使用dom4j，首先需要导入jar包
+
+	（1）快速入门
+	SAXReader reader = new SAXReader();
+        Document document = reader.read("xml文件的路径");
+
+	（2）使用dom4j查询xml
+	第一步：得到xml的document对象
+	第二步：得到根节点
+	第三步：得到根节点下面的子节点
+		* Element element("标签名称") : 得到就是第一个子标签对象
+		* List elements("标签名称") ：得到标签下面的和名称相同的所有的子标签
+		* List elements()  ： 得到标签下面的所有的子标签
+
+		* 得到标签的文本内容 getText()
+		* 得到标签子标签的文本内容 elementText("标签名称")
+
+	练习一：获取第一个p1标签下面name标签的值
+		public static void selectName() throws Exception {
+			//得到xml的document
+			SAXReader reader = new SAXReader();
+			Document document = reader.read("src/person.xml");
+			//得到根节点 getRootElement()
+			Element root = document.getRootElement();
+			//得到第一个p1标签
+			Element p1 = root.element("p1");
+			//得到p1下面的name标签
+			Element name = p1.element("name");
+			//得到name标签的值
+			String value = name.getText();
+			System.out.println(value);
+		}
+
+	练习二：得到第二个p1标签下面的age的值
+	public static void selectAge() throws Exception  {
+		//得到xml的document
+		SAXReader reader = new SAXReader();
+		Document document = reader.read("src/person.xml");
+		//得到根节点 getRootElement()
+		Element root = document.getRootElement();
+		//得到第二个p1
+		List<Element> list = root.elements("p1");
+		Element p1 = list.get(1);
+		//得到age标签
+		Element age = p1.element("age");
+		System.out.println(age.getText());
+
+	}
+
+	练习三：得到第一个p1标签下面的所有的标签里面的值
+	public static void selectP1() throws Exception {
+		//得到xml的document
+		SAXReader reader = new SAXReader();
+		Document document = reader.read("src/person.xml");
+		//得到根节点 getRootElement()
+		Element root = document.getRootElement();
+		//得到第一个p1标签
+		Element p1 = root.element("p1");
+		//p1标签下面的所有的标签
+		List<Element> list = p1.elements();
+		//得到标签所有的值
+		for (Element element : list) {
+			String value = element.getText();
+			System.out.println(value);
+		}
+	}
+
+	练习四：获取第一个p1标签下面name标签的属性值
+	public static void selectNameAttribute() throws Exception {
+		//得到xml的document
+		SAXReader reader = new SAXReader();
+		Document document = reader.read("src/person.xml");
+		//得到根节点 getRootElement()
+		Element root = document.getRootElement();
+		//得到第一个p1标签
+		Element p1 = root.element("p1");
+		//得到p1下面的name标签
+		Element name = p1.element("name");
+		//得到属性值
+		String value = name.attributeValue("id1");
+		System.out.println(value);
+	}
+
+
+	（2）xpath的使用
+	* xpath是一种书写形式，使用这种书写形式直接得到xml中某个标签
+
+	第一种：/AAA/DDD/BBB ，在AAA 下面的DDD 下面的 BBB，一层一层的
+	第二种（***）：//BBB，无论BBB在哪一层，都找到
+	第三种：  * ，所有的内容
+	第四种（**）： //BBB[@id]， BBB标签有属性名称是id
+	第五种（**）： //BBB[@id='b1'] BBB标签属性名称是id，值是b1
+
+	* 在dom4j里面使用xpath
+	** 在默认的情况下dom4j不支持xpath，要想使用需要导入xpath的jar包
+
+	* 在dom4j里面支持xpath有两个方法
+	= selectNodes(xpath)
+	练习一：得到xml中所有的name标签的值
+	// xpath:  //name
+	public static void selectName() throws Exception {
+		//得到xml的document
+		SAXReader reader = new SAXReader();
+		Document document = reader.read("src/person.xml");
+		//在document对象之间使用针对xpath的方法
+		List<Node> list = document.selectNodes("//name");
+		//得到name标签里面的值
+		for (Node node : list) {
+			String value = node.getText();
+			System.out.println(value);
+		}
+	}
+
+	= selectSingleNode(xpath)
+	练习二：得到name标签上面属性名称是id1的内容
+	//  //name[@id1]
+	public static void selectNameAttribute() throws Exception {
+		//得到xml的document
+		SAXReader reader = new SAXReader();
+		Document document = reader.read("src/person.xml");
+		//得到name标签上面属性名称是id1
+		Node name = document.selectSingleNode("//name[@id1]");
+		System.out.println(name.getText());
+	}
+
+
+3、web相关概念介绍
+	3.1 静态资源和动态资源
+	（1）静态资源：使用html编写静态页面，里面数据都是固定的值（html、css、JavaScript）
+	（2）动态资源：数据会发生变化（从数据库里面获取数据）
+	javaweb：使用java开发动态资源
+	（3）动态资源的技术
+	* sun公司用于开发动态资源的技术：jsp  servlet
+	* php：开发单纯的网站，很有优势
+	* asp
+	.......
+	（4）java适合开发企业级的应用 ，比如 oa、管理软件、网银
+
+	3.2 软件体系的结构
+	（1）c  s：客户端服务器
+		* 常见的软件：qq、迅雷、电驴...
+		* 优点：在本机运行某些程序，减轻服务器的压力
+		* 缺点：服务器如果更新了，客户端也要更新
+
+	（2）b  s：浏览器服务器
+		* 常见的软件：网银、支付宝、webqq...
+		* 优点：服务器如果更新了，不需要更新
+		* 缺点：服务器的压力会比较大
+
+	3.3 web间通信
+	（1）在浏览器的地址栏输入一个地址 http://www.itcast.cn
+	域名通信：在网络中使用ip地址进行通信，把域名转换成ip地址，使用ip地址+端口号进行访问
+
+4、web服务器介绍
+	4.1 什么是服务器
+	（1）从硬件：一台配置比较高的电脑
+	（2）从软件：在电脑上安装服务器软件
+
+	4.2 常见的web服务器
+	（1）tomcat服务器：是apache组织，开源免费的服务器
+	（2）weblogic服务器：bea公司，是一个收费的服务器
+	（3）websphere服务器：ibm公司，是一个收费的服务器
+
+5、tomcat安装和目录结构
+	* 安装tomcat7.x版本
+	5.1 tomcat的安装
+	（1）有两种方式（一种使用exe文件，一种使用压缩文件）
+	（2）检验是否安装成功
+	= 启动tomcat服务器
+	== 找到tomcat的bin目录，找到文件 startup.bat，双击这个文件启动tomcat服务器
+	出现黑色窗口，没有出现异常，在最下面有ms，表示启动成功了。
+	== 可以通过浏览器访问tomcat服务器，tomcat默认端口是8080
+	因为是本机，所以ip可以写成 127.0.0.1 或者 localhost 或者写本机实际的ip
+	http://127.0.0.1:8080/ 出现了一个猫的页面表示启动成功了，表示安装成功了。
+
+	= 关闭tomcat服务器
+	== 直接关闭黑色的窗口
+	== 找到tomcat的bin目录，找到文件 shutdown.bat
+
+	5.2 安装tomcat问题的解决
+	（1）安装tomcat服务器有前提条件：必须安装jdk，同时配置环境变量 JAVA_HOME
+	* 如果没有配置环境变量，点击startup.bat时候，一闪就没有了
+	* 查看错误的方式：打开cmd窗口，进入到要执行文件的路径，执行startup.bat出现错误的信息
+
+	（2）端口冲突
+	java.net.BindException: Address already in use: JVM_Bind <null>:8080
+	= 修改启动的端口
+	== 找到tomcat里面conf目录，找到文件server.xml进行端口修改
+	== 可以把端口修改为80端口，在浏览器的地址栏直接输入ip就可以访问，不需要输入端口号
+
+	5.3 tomcat的目录结构
+	（1）bin（***）：放启动和关闭tomcat的文件
+	（2）conf（***）：放tomcat的配置文件 server.xml  web.xml
+	（3）lib：放jar包的目录
+	（4）logs：放日志文件
+	（5）temp：放临时文件
+	（6）webapps（****）：如果项目想要在tomcat里面运行，必须要放到这个目录里面
+	（7）work：jsp编译成servlet，放到这个目录里面
+
+6、发布web项目到tomcat
+	6.1 开放式目录部署
+	（1）静态资源部署到tomcat服务器中
+	= 直接在webapps里面创建文件夹，在这个创建的文件夹里面直接放入html文件
+	= 访问静态资源：http://ip+端口号/文件夹的名称/html文件名称
+
+	（2）动态资源部署到tomcat服务器中
+	= 首先在webapps下面创建文件夹，在创建的文件夹里面有这样的结构
+		website
+			- WEB-INF(必须有)
+			-- web.xml(必须有)
+			-- classes
+			-- lib
+
+	6.2 配置虚拟路径（***）
+	（1）通过配置的方式找到项目，通过配置部署到tomcat中
+	（2）有两种方式
+	第一种方式：找到tomcat的conf目录，找到文件 server.xml，进行配置
+		<HOST>标签里面 <Context docBase="要部署项目的路径" path="在浏览器里面访问地址"></Context>
+		<Context docBase="I:\itcast" path="/demo"></Context>
+		http://127.0.0.1/demo/aa.html
+
+	第二种方式：找到tomcat的conf目录，Catalina\localhost目录，在localhost目录里面创建xml文件。
+	在创建的xml中进行配置，不要写path属性
+		<?xml version="1.0" ?>
+		<Context docBase="I:\itheima"></Context>
+	访问：使用xml文件的名称进行访问
+		http://127.0.0.1/xml文件的名称/bb.html
+
+
+7、使用myeclipse整合tomcat
+	7.1 整合的过程
+	7.2 在myeclipse中启动tomcat服务器和关闭tomcat服务器
+	7.3 在myeclipse中部署项目到tomcat中
+	（1）把web项目的webroot下面的内容放到tomcat的webapps里面
+	（2）两个名称区别：上面的名称是项目显示的名称，下面的名称是部署到tomcat里面名称
+
+=========================================================================
+今天内容的总结
+1、xml的语法
+2、xml的约束
+（1）有两个：dtd和schema
+
+3、xml的解析（*****）
+（1）xml的解析的技术 dom 和 sax
+（2）dom解析的过程和优缺点
+（3）sax解析的过程和优缺点
+（4）使用dom4j解析xml（查询操作）
+	* element(name)
+	* elements(name)
+	* elements()
+（5）dom4j对xpath的支持
+	* 对xpath支持的两个方法
+	* xpath书写形式
+
+4、tomcat服务器
+（1）tomcat的安装
+（2）问题的解决（查错方法和修改端口）
+（3）发布web项目到tomcat
+	第一种：开放式目录部署
+	** 静态资源直接复制
+	** 动态资源满足目录结构
+
+	第二种：配置虚拟路径（两种）
+	** 在server.xml中进行配置
+	** 在conf里面localhost文件夹里面创建xml文件，进行配置
+（4）使用myeclipse整合tomcat
+
+=====================================
+完成任务：
+（1）把dom4j解析xml查询操作的代码至少写一遍
+（2）使用两种方式配置出虚拟路径
+（3）把myeclipse中整合tomcat
+
